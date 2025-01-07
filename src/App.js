@@ -8,8 +8,9 @@ const App = () => {
   const handleClick = async () => {
     //setShowCashless(true);
     console.log("[App.js]:「Cashless」ボタンがクリックされました。");
-    const resultJsonString = await window.FaceCaptureInterface.getFace();
-    console.log("[App.js]: Face data received:", resultJsonString);
+    const resultJsonString = await window.GC_CashlessInterface.get_GCCashless();
+    console.log("[App.js]: Cashless Method data is received:", resultJsonString);
+    
   };
 
   return (
