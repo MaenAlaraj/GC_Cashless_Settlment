@@ -5,8 +5,11 @@ import Cashless from './Cashless';
 const App = () => {
   const [showCashless, setShowCashless] = useState(false);
 
-  const handleClick = () => {
-    setShowCashless(true);
+  const handleClick = async () => {
+    //setShowCashless(true);
+    console.log("[App.js]:「Cashless」ボタンがクリックされました。");
+    const resultJsonString = await window.FaceCaptureInterface.getFace();
+    console.log("[App.js]: Face data received:", resultJsonString);
   };
 
   return (
