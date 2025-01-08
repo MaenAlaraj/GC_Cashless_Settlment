@@ -5,7 +5,7 @@ import Cashless from './Cashless';
 const App = () => {
   const [cashlessActive, setCashlessActive] = useState(false);
   const [isCalling, setIsCalling] = useState(false); // Prevent duplicate calls
-  
+
   const handleClick = async () => {
     if (isCalling) {
       console.warn("[App.js]: Button click ignored, already calling get_GCCashless.");
@@ -18,8 +18,8 @@ const App = () => {
 
     try {
       // Call the Android interface method
-      const resultJsonString = await window.GC_CashlessInterface.get_GCCashless();
-      console.log("[App.js]: Cashless Method data is received:", resultJsonString);
+      const retPaymentMethodType = await window.GC_CashlessInterface.get_GCCashless();
+      console.log("[App.js]: Cashless Method type is received:", retPaymentMethodType);
 
       // Reset the state to allow future interactions
       setCashlessActive(false);
@@ -68,7 +68,16 @@ const styles = {
     padding: '10px 20px',
     fontSize: '18px',
     cursor: 'pointer',
+    backgroundColor: '#fff', // Set your desired button background
+    color: '#000', // Set your desired button text color
+    border: '1px solid #000', // Add border if needed
+    outline: 'none',
+    transition: 'none', // Disable transitions to prevent visual changes
+  },
+  buttonActive: {
+    backgroundColor: '#fff', // Ensure the color stays the same
   },
 };
+
 
 export default App;
