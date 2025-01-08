@@ -5,6 +5,7 @@ import Cashless from './Cashless';
 const App = () => {
   const [cashlessActive, setCashlessActive] = useState(false);
   const [isCalling, setIsCalling] = useState(false); // Prevent duplicate calls
+  const [paymentMethod, setPaymentMethod] = useState(""); // Store the returned value
 
   const handleClick = async () => {
     if (isCalling) {
@@ -20,6 +21,11 @@ const App = () => {
       // Call the Android interface method
       const retPaymentMethodType = await window.GC_CashlessInterface.get_GCCashless();
       console.log("[App.js]: Cashless Method type is received:", retPaymentMethodType);
+
+       // Update the state with the returned value
+       setPaymentMethod(retPaymentMethodType);
+
+
 
       // Reset the state to allow future interactions
       setCashlessActive(false);
@@ -47,7 +53,12 @@ const App = () => {
         キャッシュレス決済
       </button>
 
-      {cashlessActive && <div>Cashless interaction is active</div>}
+    {/* Display the returned value under the button */}
+    {paymentMethod && (
+        <div style={styles.result}>
+          <p>受け取ったキャッシュレス決済方法: {paymentMethod}</p>
+        </div>
+      )}
     </div>
   );
 };
