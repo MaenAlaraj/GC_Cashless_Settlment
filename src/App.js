@@ -68,16 +68,7 @@ const styles = {
     padding: '10px 20px',
     fontSize: '18px',
     cursor: 'pointer',
-    backgroundColor: '#fff', // Set your desired button background
-    color: '#000', // Set your desired button text color
-    border: '1px solid #000', // Add border if needed
-    outline: 'none',
-    transition: 'none', // Disable transitions to prevent visual changes
-  },
-  buttonActive: {
-    backgroundColor: '#fff', // Ensure the color stays the same
   },
 };
-
 
 export default App;
