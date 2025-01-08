@@ -3,25 +3,42 @@ import React, { useState } from 'react';
 import Cashless from './Cashless';
 
 const App = () => {
-  const [showCashless, setShowCashless] = useState(false);
+  const [cashlessActive, setCashlessActive] = useState(false);
 
   const handleClick = async () => {
-    //setShowCashless(true);
     console.log("[App.js]:「Cashless」ボタンがクリックされました。");
-    const resultJsonString = await window.GC_CashlessInterface.get_GCCashless();
-    //const resultJsonString = await window.FaceCaptureInterface.getFace();
-    console.log("[App.js]: Cashless Method data is received:", resultJsonString);
-    
+
+    try {
+      // Invoke the Android interface method
+      const resultJsonString = await window.GC_CashlessInterface.get_GCCashless();
+
+      // Log the result
+      console.log("[App.js]: Cashless Method data is received:", resultJsonString);
+
+      // Reset the state to allow future calls
+      setCashlessActive(false);
+    } catch (error) {
+      console.error("[App.js]: Error calling get_GCCashless:", error);
+    }
   };
 
   return (
     <div style={styles.container}>
       <div style={styles.label}>
-        <h2>Click the button below to proceed with Cashless Payment</h2>
+        <h2>以下のボタンをクリックしてキャッシュレス決済を進めてください</h2>
       </div>
-      <button style={styles.button} onClick={handleClick}>Cashless</button>
+      <button
+        style={styles.button}
+        onClick={() => {
+          // Ensure the state is ready for a new interaction
+          setCashlessActive(true);
+          handleClick();
+        }}
+      >
+        キャッシュレス決済
+      </button>
 
-      {showCashless && <Cashless />}
+      {cashlessActive && <div>Cashless interaction is active</div>}
     </div>
   );
 };
