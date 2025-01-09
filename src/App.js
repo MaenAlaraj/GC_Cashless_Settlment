@@ -19,12 +19,30 @@ const App = () => {
       const retPaymentMethodType = await window.GC_CashlessInterface.get_GCCashless();
       console.log("[App.js]: Cashless Method type is received:", retPaymentMethodType);
 
+
+
+      const message = `受け取ったキャッシュレス決済方法: ${retPaymentMethodType}. Thank you.`;
+      speakText(message);
+
+
+      
+
       // Update the state with the returned value
       setPaymentMethod(retPaymentMethodType);
     } catch (error) {
       console.error("[App.js]: Error calling get_GCCashless:", error);
     } finally {
       setIsCalling(false); // Allow further calls
+    }
+  };
+
+
+  const speakText = (text) => {
+    if ('speechSynthesis' in window) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      window.speechSynthesis.speak(utterance);
+    } else {
+      console.error("[App.js]: Text-to-speech is not supported in this browser.");
     }
   };
 
