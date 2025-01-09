@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/GC_Cashless_Settlment/static/css/main.e6c13ad2.css",
-    "main.js": "/GC_Cashless_Settlment/static/js/main.216efb4a.js",
+    "main.js": "/GC_Cashless_Settlment/static/js/main.26d2bbf5.js",
     "static/js/488.bcdcd0a2.chunk.js": "/GC_Cashless_Settlment/static/js/488.bcdcd0a2.chunk.js",
     "index.html": "/GC_Cashless_Settlment/index.html",
     "main.e6c13ad2.css.map": "/GC_Cashless_Settlment/static/css/main.e6c13ad2.css.map",
-    "main.216efb4a.js.map": "/GC_Cashless_Settlment/static/js/main.216efb4a.js.map",
+    "main.26d2bbf5.js.map": "/GC_Cashless_Settlment/static/js/main.26d2bbf5.js.map",
     "488.bcdcd0a2.chunk.js.map": "/GC_Cashless_Settlment/static/js/488.bcdcd0a2.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.216efb4a.js"
+    "static/js/main.26d2bbf5.js"
   ]
 }
