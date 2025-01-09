@@ -22,15 +22,20 @@ const App = () => {
       // Update the state with the returned value
       setPaymentMethod(retPaymentMethodType);
 
-      // Convert text into voice
-      const message = `受け取ったキャッシュレス決済方法: ${retPaymentMethodType}. Thank you.`;
-      speakText(message);
+       // Convert text into voice
+       const message = `Thank you.`;
+       speakText(message);
+
+
+
     } catch (error) {
       console.error("[App.js]: Error calling get_GCCashless:", error);
     } finally {
       setIsCalling(false); // Allow further calls
     }
   };
+
+
 
   const speakText = (text) => {
     if ('speechSynthesis' in window) {
@@ -40,6 +45,8 @@ const App = () => {
       console.error("[App.js]: Text-to-speech is not supported in this browser.");
     }
   };
+
+
 
   return (
     <div style={styles.container}>
