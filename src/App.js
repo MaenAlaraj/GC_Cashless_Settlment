@@ -1,95 +1,38 @@
 import React, { useState } from 'react';
 
 const App = () => {
-  const [isCalling, setIsCalling] = useState(false); // Prevent duplicate calls
-  const [paymentMethod, setPaymentMethod] = useState(""); // Store the returned value
+  const [paymentMethod, setPaymentMethod] = useState('');
 
-  const handleClick = async () => {
-    if (isCalling) {
-      console.warn("[App.js]: Button click ignored, already calling get_GCCashless.");
-      return;
-    }
+  const handleClick = () => {
+    const method = 'Credit Card'; // Example payment method
+    setPaymentMethod(method);
 
-    setIsCalling(true); // Prevent duplicate calls
-
-    console.log("[App.js]:「Cashless」ボタンがクリックされました。");
-
-    try {
-      // Call the Android interface method
-      const retPaymentMethodType = await window.GC_CashlessInterface.get_GCCashless();
-      console.log("[App.js]: Cashless Method type is received:", retPaymentMethodType);
-
-
-
-      const message = `受け取ったキャッシュレス決済方法: ${retPaymentMethodType}. Thank you.`;
-      speakText(message);
-
-
-      
-
-      // Update the state with the returned value
-      setPaymentMethod(retPaymentMethodType);
-    } catch (error) {
-      console.error("[App.js]: Error calling get_GCCashless:", error);
-    } finally {
-      setIsCalling(false); // Allow further calls
-    }
+    // Call the speakText function
+    speakText(`Thank you. You selected ${method} as your payment method.`);
   };
-
 
   const speakText = (text) => {
     if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel(); // Clear the speech queue
       const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-US'; // Set language
+      utterance.volume = 1; // Volume: 0 to 1
+      utterance.rate = 1; // Rate: 0.1 to 10
+      utterance.pitch = 1; // Pitch: 0 to 2
       window.speechSynthesis.speak(utterance);
     } else {
-      console.error("[App.js]: Text-to-speech is not supported in this browser.");
+      console.error('Speech synthesis is not supported in this browser.');
     }
   };
 
   return (
-    <div style={styles.container}>
-      <div style={styles.label}>
-        <h2>以下のボタンをクリックしてキャッシュレス決済を進めてください</h2>
-      </div>
-      <button
-        style={styles.button}
-        onClick={handleClick}
-      >
-        キャッシュレス決済
+    <div style={{ textAlign: 'center', marginTop: '50px' }}>
+      <button onClick={handleClick} style={{ fontSize: '20px', padding: '10px 20px' }}>
+        Select Payment
       </button>
-
-      {/* Display the returned value or fallback text */}
-      <div style={styles.result}>
-        {paymentMethod
-          ? <p>受け取ったキャッシュレス決済方法: {paymentMethod}</p>
-          : <p>まだキャッシュレス決済方法が取得されていません。</p>}
-      </div>
+      {paymentMethod && <p>Selected Payment Method: {paymentMethod}</p>}
     </div>
   );
-};
-
-const styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100vh',
-    textAlign: 'center',
-  },
-  label: {
-    marginBottom: '20px',
-  },
-  button: {
-    padding: '10px 20px',
-    fontSize: '18px',
-    cursor: 'pointer',
-  },
-  result: {
-    marginTop: '20px',
-    fontSize: '16px',
-    color: '#333',
-  },
 };
 
 export default App;
